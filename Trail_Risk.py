@@ -1,19 +1,19 @@
-```import os
+import os
 import rasterio
 from rasterio.merge import merge
 
-os.chdir(r"C:\Users\harrivan\Desktop\Data\Output")
+os.chdir(r"Output")
 
 
 import arcpy
 from arcpy import env
-env.workspace = r"C:\Users\harrivan\Desktop\Data\Output"
+env.workspace = r"Output"
 env.overwriteOutput = 1
 env.qualifiedFieldNames = "UNQUALIFIED"
 arcpy.CheckOutExtension("Spatial")
 
 #these are two global variables that get used in many of the later functions
-sr=r"C:\Users\harrivan\Desktop\Data\cent_co.prj"
+sr=r"cent_co.prj"
 rec = 0
 
 #i needed to project both raster and vector data before all other processes
@@ -360,16 +360,16 @@ def generalize_risk(original_trails, seg_trails, join_field):
 def main():
     import time
     t1=time.time()
-    boundary(r"C:\Users\harrivan\Desktop\Data\Admin\Colorado_County_Boundaries.shp", 
-         r"C:\Users\harrivan\Desktop\Data\Admin\RangerD.shp", "boundaries.shp")
+    boundary(r"Colorado_County_Boundaries.shp", 
+         r"RangerD.shp", "boundaries.shp")
     arcpy.env.extent= "boundaries.shp"
     arcpy.env.mask = "boundaries.shp"
-    prep_dem(r"C:\Users\harrivan\Desktop\Data\Elevation\40_106_13_slp", 
-         r"C:\Users\harrivan\Desktop\Data\Elevation\41_106_13_slp", "tot_dem.tif")
+    prep_dem(r"40_106_13_slp", 
+         r"41_106_13_slp", "tot_dem.tif")
     prep_variables("boundaries.shp", "tot_dem.tif", 
-               r"C:\Users\harrivan\Desktop\Data\Trails\Trails\TrailsExport2_26_19.shp",
-               r"C:\Users\harrivan\Desktop\Data\Prism\PRISM_ppt_30yr_normal_800mM2_annual_bil.bil",
-               r"C:\Users\harrivan\Desktop\Data\statsgo\KFACt_1km.tif")
+               r"TrailsExport2_26_19.shp",
+               r"PRISM_ppt_30yr_normal_800mM2_annual_bil.bil",
+               r"statsgo\KFACt_1km.tif")
     cut_all_lines("in_trails.shp", "test", sr, "PERMANENT_", 30.48)
     write_to_feat("test_seg.shp", arcpy.ListRasters("in*"))
     trailangle("test_seg.shp", "in_dem.tif") 
@@ -382,4 +382,4 @@ def main():
     print('Trail Erosion Risk analysis complete in '+ str(round((t2-t1)/60, 2)) + ' minutes')
 
 
-main()```
+main()
