@@ -1,5 +1,7 @@
 #a function to mosiac two raster images together. 
-  #this function assumes no overlapping of the images
+#this function assumes no overlapping of the images.
+  #dem1 is a single raster file. dem2 is another single raster file.
+  #out_file is the name and directory for the ouput to be saved too.
     
 
 def mosiac_dem(dem1, dem2, out_file):
