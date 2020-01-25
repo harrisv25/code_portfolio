@@ -27,4 +27,5 @@ def calc_TIP(inraster):
             avArray[row, col] = win.mean()
     tip_array=array-avArray
     return(tip_array)
-    
+
+#this function creates an array, not a raster. The array must be converted to a raster seperately
